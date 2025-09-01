@@ -1,0 +1,89 @@
+<!--
+    Potato Annotation Template: Dehumanization Validation (Round 2)
+    Task: Judge if an existing annotation (label + explanation) is valid and rate confidence.
+-->
+
+<style>
+    .container {
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    .text-to-label {
+        background-color: #f0f8ff; /* Light blue */
+        border: 1px dashed #ddd;
+        padding: 10px;
+        margin-bottom: 15px;
+        font-size: 1.1em;
+        line-height: 1.5;
+    }
+    .annotation-to-judge {
+        background-color: #fffacd; /* Lemon Chiffon */
+        border: 1px solid #f0e68c;
+        padding: 10px;
+    }
+    .likert-scale-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+    }
+    .likert-scale-table td {
+        padding: 8px;
+    }
+</style>
+
+<div class="container">
+    <h4>Instructions</h4>
+    <p>You will be shown the original text and an annotation made by another user (or yourself) in a previous round. Your task is to judge the validity of that annotation.</p>
+    <ol>
+        <li>Review the original text.</li>
+        <li>Review the existing annotation, which includes a <strong>Label</strong> and an <strong>Explanation</strong>.</li>
+        <li>Decide if the explanation provides a <strong>valid and logical reason</strong> for the assigned label.</li>
+        <li>Rate how confident you are in your validation judgment.</li>
+    </ol>
+</div>
+
+<div class="container">
+    <h4>Original Text</h4>
+    <div class="text-to-label">
+        {{text}}
+    </div>
+</div>
+
+<div class="container">
+    <h4>Annotation to Judge</h4>
+    <div class="annotation-to-judge">
+        <p><strong>Label Given:</strong> <u>{{original_label}}</u></p>
+        <p><strong>Explanation Given:</strong> <i>"{{original_explanation}}"</i></p>
+    </div>
+</div>
+
+<div class="container">
+    <h4>1. Your Judgment</h4>
+    <!-- The main validation choice -->
+    <p>Does the explanation provide a valid reason for the given label?</p>
+    {{ C('validation_judgment', 'Is this annotation valid?', ['Yes, the reasoning is valid', 'No, the reasoning is invalid', "I don't know / Unsure"], required=True) }}
+</div>
+
+<div class="container">
+    <h4>2. Confidence in Your Validation</h4>
+    <!-- 5-point Likert scale for confidence -->
+    <p>How confident are you in your validation decision?</p>
+    <table class="likert-scale-table">
+        <tr>
+            <td>1 - Not Confident At All</td>
+            <td>2</td>
+            <td>3 - Moderately Confident</td>
+            <td>4</td>
+            <td>5 - Very Confident</td>
+        </tr>
+        <tr>
+            <td>{{ R('validation_confidence', 1, required=True) }}</td>
+            <td>{{ R('validation_confidence', 2) }}</td>
+            <td>{{ R('validation_confidence', 3) }}</td>
+            <td>{{ R('validation_confidence', 4) }}</td>
+            <td>{{ R('validation_confidence', 5) }}</td>
+        </tr>
+    </table>
+</div>

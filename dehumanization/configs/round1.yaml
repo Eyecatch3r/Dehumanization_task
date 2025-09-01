@@ -1,0 +1,92 @@
+# ==========================================================
+#      Potato Config for Dehumanization Task - ROUND 1
+# ==========================================================
+annotation_task_name: "Dehumanization Detection (Round 1)"
+
+port: 9001
+server_name: "Dehumanization Annotation Server"
+
+output_annotation_dir: "annotation_output/round1/"
+output_annotation_format: "csv"
+
+data_files:
+  - "data_files/initial_data.csv"
+
+# FIXES: KeyError: 'id_key' by adding this required section.
+# Your initial_data.csv MUST have columns named 'id' and 'text'.
+item_properties:
+  id_key: "id"
+  text_key: "text"
+
+user_config:
+  allow_all_users: True
+  users: []
+
+login:
+  type: 'password'
+
+# FIXES: The KeyError for this required field.
+alert_time_each_instance: 10000000
+
+# FIXES: "unsupported annotation type: choice" by using the correct type "radio_button".
+# This section defines all your questions.
+annotation_schemes:
+  - name: "label"
+    annotation_type: "radio"
+    description: "<strong>1. Classification:</strong><br>Does this text contain dehumanizing language? (A text is <strong>Dehumanizing</strong> if it portrays a person or group as less than human)."
+    labels: ["Dehumanizing", "Not Dehumanizing"]
+    label_requirement: { "required": True }
+
+  # 2. THE NEW DROPDOWN WIDGET
+  # This will only appear if the user selects "Dehumanizing" in the question named "label".
+  - name: "dehumanization_type"
+    annotation_type: "radio"
+    description: "<strong>2. Dehumanization Type:</strong><br>What type of dehumanization is present?"
+    labels:
+      - "Animalistic (e.g., calling people animals, insects, vermin)"
+      - "Mechanistic (e.g., calling people objects, machines, cogs)"
+      - "Demonization (e.g., calling people monsters, demons)"
+      - "Other / Unsure"
+    label_requirement: { "required": True }
+    # This is the key for conditional logic:
+    depend_on_labels: { "label": ["Dehumanizing"] }
+
+  # 3. The free-text explanation is still crucial for the VARIERR methodology.
+  - name: "explanation"
+    annotation_type: "text"
+    description: "<strong>3. Explanation:</strong><br>Please provide a one-sentence explanation to justify your choice in Question 1."
+    label_requirement: { "required": True }
+
+
+  - name: "confidence"
+    annotation_type: "likert"
+    description: "<strong>3. Confidence:</strong><br>How confident are you in your overall judgment?"
+    size: 5
+    min_label: "1 - Not Confident"
+    max_label: "5 - Very Confident"
+    label_requirement: { "required": True }
+
+html_layout: "default"
+base_html_template: "default"
+header_file: "default"
+
+# --- Optional Settings (can be kept as is) ---
+"annotation_codebook_url": ""
+"jumping_to_id_disabled": True
+"hide_navbar": True
+"surveyflow":
+  "on": True
+  # Defines the order of pages shown to the annotator
+  "order": ['pre_annotation', 'post_annotation']
+
+  # Pages shown BEFORE the main annotation task begins
+  "pre_annotation":
+    - 'surveyflow/intro.jsonl'
+    - 'surveyflow/consent.jsonl'
+    - 'surveyflow/instruction.jsonl' # This should be your instructions_r1.jsonl
+
+  # Pages shown AFTER the annotator has finished all items
+  "post_annotation":
+    - 'surveyflow/experience.jsonl'
+    - 'surveyflow/demographic_questions.jsonl'
+    - 'surveyflow/end.jsonl'
