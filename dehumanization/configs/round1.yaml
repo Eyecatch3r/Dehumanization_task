@@ -7,7 +7,7 @@ port: 9001
 server_name: "Dehumanization Annotation Server"
 
 output_annotation_dir: "annotation_output/round1/"
-output_annotation_format: "csv"
+output_annotation_format: "tsv"
 
 data_files:
   - "data_files/initial_data.csv"
@@ -84,9 +84,11 @@ header_file: "default"
     - 'surveyflow/intro.jsonl'
     - 'surveyflow/consent.jsonl'
     - 'surveyflow/instruction.jsonl' # This should be your instructions_r1.jsonl
+    - 'surveyyflow/examples.jsonl'
 
   # Pages shown AFTER the annotator has finished all items
   "post_annotation":
+    - 'surveyflow/examples-after.jsonl'
     - 'surveyflow/experience.jsonl'
     - 'surveyflow/demographic_questions.jsonl'
     - 'surveyflow/end.jsonl'
