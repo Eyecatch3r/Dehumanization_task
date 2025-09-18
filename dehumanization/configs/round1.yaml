@@ -81,14 +81,14 @@ header_file: "default"
 
   # Pages shown BEFORE the main annotation task begins
   "pre_annotation":
+    - 'surveyflow/examples.jsonl'
     - 'surveyflow/intro.jsonl'
     - 'surveyflow/consent.jsonl'
     - 'surveyflow/instruction.jsonl' # This should be your instructions_r1.jsonl
-    - 'surveyyflow/examples.jsonl'
 
   # Pages shown AFTER the annotator has finished all items
   "post_annotation":
-    - 'surveyflow/examples-after.jsonl'
     - 'surveyflow/experience.jsonl'
     - 'surveyflow/demographic_questions.jsonl'
     - 'surveyflow/end.jsonl'
+    - 'surveyflow/examples-after.jsonl'
