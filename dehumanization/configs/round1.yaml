@@ -37,21 +37,6 @@ annotation_schemes:
     labels: ["Dehumanizing", "Not Dehumanizing"]
     label_requirement: { "required": True }
 
-  # 2. THE NEW DROPDOWN WIDGET
-  # This will only appear if the user selects "Dehumanizing" in the question named "label".
-  - name: "dehumanization_type"
-    annotation_type: "radio"
-    description: "<strong>2. Dehumanization Type:</strong><br>What type of dehumanization is present?"
-    labels:
-      - "Animalistic (e.g., calling people animals, insects, vermin)"
-      - "Mechanistic (e.g., calling people objects, machines, cogs)"
-      - "Demonization (e.g., calling people monsters, demons)"
-      - "Other / Unsure"
-    label_requirement: { "required": True }
-    # This is the key for conditional logic:
-    depend_on_labels: { "label": ["Dehumanizing"] }
-
-  # 3. The free-text explanation is still crucial for the VARIERR methodology.
   - name: "explanation"
     annotation_type: "text"
     description: "<strong>3. Explanation:</strong><br>Please provide a one-sentence explanation to justify your choice in Question 1."
@@ -81,14 +66,14 @@ header_file: "default"
 
   # Pages shown BEFORE the main annotation task begins
   "pre_annotation":
-    - 'surveyflow/examples.jsonl'
-    - 'surveyflow/intro.jsonl'
+    - 'surveyflow/definition.jsonl'
+    - 'surveyflow/instruction.jsonl'
+    - 'surveyflow/definition2.jsonl'
     - 'surveyflow/consent.jsonl'
-    - 'surveyflow/instruction.jsonl' # This should be your instructions_r1.jsonl
 
   # Pages shown AFTER the annotator has finished all items
   "post_annotation":
+    - 'surveyflow/definition3.jsonl'
     - 'surveyflow/experience.jsonl'
     - 'surveyflow/demographic_questions.jsonl'
     - 'surveyflow/end.jsonl'
-    - 'surveyflow/examples-after.jsonl'
