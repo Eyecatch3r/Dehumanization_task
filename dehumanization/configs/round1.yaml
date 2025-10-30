@@ -66,14 +66,12 @@ header_file: "default"
 
   # Pages shown BEFORE the main annotation task begins
   "pre_annotation":
-    - 'surveyflow/definition.jsonl'
-    - 'surveyflow/instruction.jsonl'
     - 'surveyflow/definition2.jsonl'
+    - 'surveyflow/instruction.jsonl'
+    - 'surveyflow/definition.jsonl'
     - 'surveyflow/consent.jsonl'
 
   # Pages shown AFTER the annotator has finished all items
   "post_annotation":
     - 'surveyflow/definition3.jsonl'
-    - 'surveyflow/experience.jsonl'
-    - 'surveyflow/demographic_questions.jsonl'
     - 'surveyflow/end.jsonl'

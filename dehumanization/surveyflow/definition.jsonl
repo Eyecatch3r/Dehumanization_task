@@ -1,1 +1,1 @@
-{"id":"1","text":"Please describe briefly how you define Dehumanization","schema":"text"}
+{"id":"1","text":"Please describe briefly how you define Dehumanization","schema":"text", "label_requirement": {"required":true}}
