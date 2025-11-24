@@ -33,8 +33,8 @@ alert_time_each_instance: 10000000
 annotation_schemes:
   - name: "label"
     annotation_type: "radio"
-    description: "<strong>1. Klassifizierung:</strong><br>Enthält dieser Text entmenschlichende Sprache? (Ein Text ist <strong>entmenschlichend</strong>, wenn er eine Person oder Gruppe als weniger als menschlich darstellt)."
-    labels: ["Entmenschlichend", "Nicht entmenschlichend"]
+    description: "<strong>1. Klassifizierung:</strong><br>Enthält dieser Text dehumanisierende Sprache? (Ein Text ist <strong>dehumanisierend</strong>, wenn er eine Person oder Gruppe als weniger als menschlich darstellt)."
+    labels: ["Dehumanisierend", "Nicht dehumanisierend"]
     label_requirement: { "required": True }
 
   - name: "explanation"
