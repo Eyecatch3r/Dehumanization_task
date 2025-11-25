@@ -59,19 +59,38 @@ header_file: "default"
 "annotation_codebook_url": ""
 "jumping_to_id_disabled": True
 "hide_navbar": True
-"surveyflow":
-  "on": True
-  # Defines the order of pages shown to the annotator
-  "order": ['pre_annotation', 'post_annotation']
-
-  # Pages shown BEFORE the main annotation task begins
-  "pre_annotation":
-    - 'surveyflow/consent.jsonl'
-    - 'surveyflow/definition2.jsonl'
-    - 'surveyflow/instruction.jsonl'
-    - 'surveyflow/definition.jsonl'
-
-  # Pages shown AFTER the annotator has finished all items
-  "post_annotation":
-    - 'surveyflow/definition3.jsonl'
-    - 'surveyflow/end.jsonl'
+"surveyflow": {
+    "on": true,
+    "order": [
+        "pre_annotation",
+        "post_annotation"
+    ],
+    "pre_annotation": [
+        {
+            "file": "surveyflow/consent.jsonl",
+            "text": "Einverständniserklaerung und Datenschutz"
+        },
+        {
+            "file": "surveyflow/definition.jsonl",
+            "text": "Teil 1: Ihre persoenliche Einschaetzung"
+        },
+        {
+            "file": "surveyflow/instruction.jsonl",
+            "text": "Richtlinien fuer die Annotation"
+        },
+        {
+            "file": "surveyflow/definition2.jsonl",
+            "text": "Teil 2: Verstaendnis nach der Anleitung"
+        }
+    ],
+    "post_annotation": [
+        {
+            "file": "surveyflow/definition3.jsonl",
+            "text": "Teil 3: Abschließende Reflexion"
+        },
+        {
+            "file": "surveyflow/end.jsonl",
+            "text": "Vielen Dank und Debriefing"
+        }
+    ]
+}
