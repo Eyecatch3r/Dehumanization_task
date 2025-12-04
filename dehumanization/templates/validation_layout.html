@@ -1,0 +1,198 @@
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<style>
+    .table td { vertical-align: middle; }
+    .expl-text { font-style: italic; color: #555; font-size: 0.95rem;}
+    .conf-score { font-size: 0.8rem; color: #6c757d; display: block; margin-top: 4px; }
+    .validation-cell { min-width: 180px; }
+    .badge-label { font-size: 0.9rem; padding: 6px 10px; }
+    .custom-control { margin-bottom: 0.5rem; }
+    .custom-control-label { cursor: pointer; }
+</style>
+
+<div class="container-fluid mt-4" style="max-width: 1200px;">
+
+    <div class="card mb-4 shadow-sm border-dark">
+        <div class="card-header bg-dark text-white py-2">
+            <strong>Original Text (ID: {{ instance_obj.id }})</strong>
+        </div>
+        <div class="card-body bg-light py-3">
+            <p class="lead mb-0" style="font-size: 1.15rem;">{{ instance_obj.text }}</p>
+        </div>
+    </div>
+
+    <div class="alert alert-info py-2 mb-3 small">
+        <strong>Anleitung:</strong> Bewerten Sie die Validität (Sinnhaftigkeit) der Erklärung für das gewählte Label.
+    </div>
+
+    <div class="table-responsive shadow-sm">
+        <table class="table table-bordered table-hover bg-white mb-0">
+            <thead class="thead-light">
+                <tr>
+                    <th style="width: 5%">#</th>
+                    <th style="width: 20%">Entscheidung</th>
+                    <th style="width: 50%">Erklärung</th>
+                    <th style="width: 25%">Validierung</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% if instance_obj.r1_label_1 %}
+                <tr>
+                    <td class="text-center font-weight-bold">1</td>
+                    <td>
+                        <span class="badge badge-primary badge-label">{{ instance_obj.r1_label_1 }}</span>
+                        {% if instance_obj.r1_conf_1 %}
+                        <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj.r1_conf_1 }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="expl-text">"{{ instance_obj.r1_expl_1 }}"</td>
+                    <td class="validation-cell">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v1_yes" name="ui_validity_1" value="Ja (Sinnvoll)" class="custom-control-input">
+                            <label class="custom-control-label text-success font-weight-bold" for="v1_yes">Ja (Sinnvoll)</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v1_no" name="ui_validity_1" value="Nein (Ungültig)" class="custom-control-input">
+                            <label class="custom-control-label text-danger" for="v1_no">Nein (Ungültig)</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v1_unsure" name="ui_validity_1" value="Unsicher" class="custom-control-input">
+                            <label class="custom-control-label text-secondary" for="v1_unsure">Unsicher</label>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+
+                {% if instance_obj.r1_label_2 %}
+                <tr>
+                    <td class="text-center font-weight-bold">2</td>
+                    <td>
+                        <span class="badge badge-primary badge-label">{{ instance_obj.r1_label_2 }}</span>
+                        {% if instance_obj.r1_conf_2 %}
+                        <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj.r1_conf_2 }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="expl-text">"{{ instance_obj.r1_expl_2 }}"</td>
+                    <td class="validation-cell">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v2_yes" name="ui_validity_2" value="Ja (Sinnvoll)" class="custom-control-input">
+                            <label class="custom-control-label text-success font-weight-bold" for="v2_yes">Ja (Sinnvoll)</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v2_no" name="ui_validity_2" value="Nein (Ungültig)" class="custom-control-input">
+                            <label class="custom-control-label text-danger" for="v2_no">Nein (Ungültig)</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v2_unsure" name="ui_validity_2" value="Unsicher" class="custom-control-input">
+                            <label class="custom-control-label text-secondary" for="v2_unsure">Unsicher</label>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+
+                {% if instance_obj.r1_label_3 %}
+                <tr>
+                    <td class="text-center font-weight-bold">3</td>
+                    <td>
+                        <span class="badge badge-primary badge-label">{{ instance_obj.r1_label_3 }}</span>
+                        {% if instance_obj.r1_conf_3 %}
+                        <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj.r1_conf_3 }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="expl-text">"{{ instance_obj.r1_expl_3 }}"</td>
+                    <td class="validation-cell">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v3_yes" name="ui_validity_3" value="Ja (Sinnvoll)" class="custom-control-input">
+                            <label class="custom-control-label text-success font-weight-bold" for="v3_yes">Ja (Sinnvoll)</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v3_no" name="ui_validity_3" value="Nein (Ungültig)" class="custom-control-input">
+                            <label class="custom-control-label text-danger" for="v3_no">Nein (Ungültig)</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v3_unsure" name="ui_validity_3" value="Unsicher" class="custom-control-input">
+                            <label class="custom-control-label text-secondary" for="v3_unsure">Unsicher</label>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+
+                {% if instance_obj.r1_label_4 %}
+                <tr>
+                    <td class="text-center font-weight-bold">4</td>
+                    <td>
+                        <span class="badge badge-primary badge-label">{{ instance_obj.r1_label_4 }}</span>
+                        {% if instance_obj.r1_conf_4 %}
+                        <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj.r1_conf_4 }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="expl-text">"{{ instance_obj.r1_expl_4 }}"</td>
+                    <td class="validation-cell">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v4_yes" name="ui_validity_4" value="Ja (Sinnvoll)" class="custom-control-input">
+                            <label class="custom-control-label text-success font-weight-bold" for="v4_yes">Ja (Sinnvoll)</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v4_no" name="ui_validity_4" value="Nein (Ungültig)" class="custom-control-input">
+                            <label class="custom-control-label text-danger" for="v4_no">Nein (Ungültig)</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="v4_unsure" name="ui_validity_4" value="Unsicher" class="custom-control-input">
+                            <label class="custom-control-label text-secondary" for="v4_unsure">Unsicher</label>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-4 mb-5">
+        </div>
+</div>
+
+<script>
+    get_new_instance = function(event) {
+        var x = event.key;
+        var action = "";
+
+        if (x == "ArrowLeft") {
+            action = "prev_instance";
+        }
+        else if (x == "ArrowRight") {
+            action = "next_instance";
+        }
+        else {
+            return;
+        }
+
+        var instance_id = document.getElementById('instance_id').value;
+        var time_string = document.getElementById("timecounter").innerHTML;
+
+        // 1. CAPTURE DATA
+        var v1 = document.querySelector('input[name="ui_validity_1"]:checked')?.value;
+        var v2 = document.querySelector('input[name="ui_validity_2"]:checked')?.value;
+        var v3 = document.querySelector('input[name="ui_validity_3"]:checked')?.value;
+        var v4 = document.querySelector('input[name="ui_validity_4"]:checked')?.value;
+
+        // 2. CONSTRUCT PAYLOAD
+        var post_req = {
+            src: action,
+            instance_id: instance_id,
+            behavior_time_string: time_string,
+            // These keys MUST match your round2.yaml annotation_schemes names exactly
+            "validity_1": v1,
+            "validity_2": v2,
+            "validity_3": v3,
+            "validity_4": v4
+        };
+
+        // 3. DEBUG ALERT (Pauses execution so you can see the data)
+        alert("Sending this data:\n" + JSON.stringify(post_req, null, 2));
+
+        // 4. SEND
+        post(post_req);
+    }
+</script>

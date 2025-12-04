@@ -1,0 +1,2 @@
+{"id": "r2_def_post", "text": "Nachdem Sie nun die Erklärungen und Sichtweisen anderer Annotatoren gelesen haben: Hat sich Ihre Definition von Dehumanisierung verändert oder erweitert? Wenn ja, wie?", "schema": "text", "label_requirement": {"required": true}}
+{"id": "r2_difficulty", "text": "Wie schwierig fanden Sie es, Erklärungen als 'Sinnvoll' zu akzeptieren, wenn Sie persönlich anderer Meinung waren?", "schema": "radio", "choices": ["Sehr einfach", "Eher einfach", "Teils / Teils", "Eher schwierig", "Sehr schwierig"], "label_requirement": {"required": true}}

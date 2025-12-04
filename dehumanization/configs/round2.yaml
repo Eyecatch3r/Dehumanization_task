@@ -1,0 +1,101 @@
+# ==========================================================
+#      Potato Config for Dehumanization Task - ROUND 2 (Validation)
+# ==========================================================
+annotation_task_name: "Dehumanization Detection (Runde 2: Validierung)"
+
+port: 9001
+server_name: "Dehumanization Validation Server"
+
+output_annotation_dir: "annotation_output/round2/"
+output_annotation_format: "tsv"
+
+# This file must contain the merged columns (r1_label_1, r1_expl_1, etc.)
+data_files:
+  - "data_files/round2_prepared_data.csv"
+
+item_properties:
+  id_key: "id"
+  text_key: "text"
+
+user_config:
+  allow_all_users: True
+  users: []
+
+login:
+  type: 'password'
+
+alert_time_each_instance: 10000000
+
+# ==========================================================
+#  Annotation Schemes (Validity Judgments)
+# ==========================================================
+# We create a separate judgment schema for each potential explanation
+# from Round 1. In the HTML, we will hide the ones that are empty.
+
+annotation_schemes:
+  # --- Judgment for Annotator 1's Explanation ---
+  - name: "validity_1"
+    annotation_type: "radio"
+    description: "Check 1"
+    labels: ["Ja (Sinnvoll)", "Nein (Ungültig)", "Unsicher"]
+    # Not required, because some items might only have 2 explanations
+    label_requirement: { "required": False }
+
+  # --- Judgment for Annotator 2's Explanation ---
+  - name: "validity_2"
+    annotation_type: "radio"
+    description: "Check 2"
+    labels: ["Ja (Sinnvoll)", "Nein (Ungültig)", "Unsicher"]
+    label_requirement: { "required": False }
+
+  # --- Judgment for Annotator 3's Explanation ---
+  - name: "validity_3"
+    annotation_type: "radio"
+    description: "Check 3"
+    labels: ["Ja (Sinnvoll)", "Nein (Ungültig)", "Unsicher"]
+    label_requirement: { "required": False }
+
+  # --- Judgment for Annotator 4's Explanation ---
+  - name: "validity_4"
+    annotation_type: "radio"
+    description: "Check 1"
+    labels: ["Ja (Sinnvoll)", "Nein (Ungültig)", "Unsicher"]
+    label_requirement: { "required": False }
+
+# ==========================================================
+#  Layout Configuration
+# ==========================================================
+# We use a custom template to display the Label+Explanation pairs
+# alongside the voting buttons.
+html_layout: "templates/validation_layout.html"
+
+"jumping_to_id_disabled": True
+"hide_navbar": True
+
+"surveyflow": {
+    "on": true,
+    "order": [
+        "pre_annotation",
+        "post_annotation"
+    ],
+    "pre_annotation": [
+        {
+            "file": "surveyflow_r2/intro_and_def.jsonl",
+            "text": "Willkommen zur&uuml;ck: Definition"
+        },
+        {
+            "file": "surveyflow_r2/instructions.jsonl",
+            "text": "Anleitung f&uuml;r Runde 2 (Validierung)"
+        }
+    ],
+    "post_annotation": [
+        {
+            "file": "surveyflow_r2/post_reflection.jsonl",
+            "text": "Abschlie&szlig;ende Reflexion"
+        },
+        {
+            "file": "surveyflow_r2/end.jsonl",
+            "text": "Vielen Dank"
+        }
+    ]
+}
