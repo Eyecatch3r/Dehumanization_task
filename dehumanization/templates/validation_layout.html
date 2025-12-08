@@ -4,10 +4,193 @@
     . table td { vertical-align: middle; }
     .expl-text { font-style: italic; color: #555; font-size: 0.95rem;}
     .conf-score { font-size: 0.8rem; color: #6c757d; display: block; margin-top: 4px; }
-    .validation-cell { min-width: 180px; }
+    .validation-cell {
+        min-width: 200px;
+        padding: 12px ! important;
+    }
     .badge-label { font-size: 0. 9rem; padding: 6px 10px; }
-    .custom-control { margin-bottom: 0.5rem; }
-    . custom-control-label { cursor: pointer; }
+
+    /* Custom Radio Button Styling */
+    .validation-cell fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .validation-option {
+        position: relative;
+        margin-bottom: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .validation-option:last-child {
+        margin-bottom: 0;
+    }
+
+    .validation-option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .validation-option label {
+        display: block;
+        padding: 10px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.25s ease;
+        background: white;
+        position: relative;
+        padding-left: 40px;
+        margin: 0;
+    }
+
+    /* Radio button circle */
+    .validation-option label::before {
+        content: '';
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        border: 2px solid #d0d0d0;
+        border-radius: 50%;
+        background: white;
+        transition: all 0.2s ease;
+    }
+
+    /* Radio button inner dot */
+    .validation-option label::after {
+        content: '';
+        position: absolute;
+        left: 17px;
+        top: 50%;
+        transform: translateY(-50%) scale(0);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+        transition: all 0.2s ease;
+    }
+
+    /* Hover effects */
+    .validation-option label:hover {
+        border-color: #007bff;
+        background: #f8f9fa;
+        transform: translateX(2px);
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.15);
+    }
+
+    .validation-option input[type="radio"]:checked + label {
+        font-weight: 600;
+        box-shadow: 0 3px 12px rgba(0, 123, 255, 0.25);
+        transform: translateX(3px);
+    }
+
+    .validation-option input[type="radio"]:checked + label::before {
+        border-width: 2px;
+    }
+
+    .validation-option input[type="radio"]:checked + label::after {
+        transform: translateY(-50%) scale(1);
+    }
+
+    /* Success/Valid option */
+    .validation-option. valid label {
+        color: #28a745;
+    }
+
+    .validation-option.valid label:hover {
+        border-color: #28a745;
+        background: #f1f9f3;
+    }
+
+    .validation-option.valid input[type="radio"]:checked + label {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        border-color: #28a745;
+        color: white;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+    }
+
+    . validation-option.valid input[type="radio"]:checked + label::before {
+        border-color: white;
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .validation-option.valid input[type="radio"]:checked + label::after {
+        background: white;
+    }
+
+    /* Danger/Invalid option */
+    .validation-option.invalid label {
+        color: #dc3545;
+    }
+
+    .validation-option.invalid label:hover {
+        border-color: #dc3545;
+        background: #fdf2f3;
+    }
+
+    .validation-option.invalid input[type="radio"]:checked + label {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        border-color: #dc3545;
+        color: white;
+        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+    }
+
+    .validation-option.invalid input[type="radio"]:checked + label::before {
+        border-color: white;
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .validation-option.invalid input[type="radio"]:checked + label::after {
+        background: white;
+    }
+
+    /* Secondary/Unsure option */
+    . validation-option.unsure label {
+        color: #6c757d;
+    }
+
+    .validation-option.unsure label:hover {
+        border-color: #6c757d;
+        background: #f5f6f7;
+    }
+
+    .validation-option.unsure input[type="radio"]:checked + label {
+        background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+        border-color: #6c757d;
+        color: white;
+        box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+    }
+
+    .validation-option.unsure input[type="radio"]:checked + label::before {
+        border-color: white;
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .validation-option. unsure input[type="radio"]:checked + label::after {
+        background: white;
+    }
+
+    /* Focus state for accessibility */
+    .validation-option input[type="radio"]:focus + label {
+        outline: 2px solid #007bff;
+        outline-offset: 2px;
+    }
+
+    /* Smooth animation for the whole row on hover */
+    .table tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
 </style>
 
 <div class="container-fluid mt-4" style="max-width: 1200px;">
@@ -43,21 +226,27 @@
                     <td>
                         <span class="badge badge-primary badge-label">{{ instance_obj.r1_label_1 }}</span>
                         {% if instance_obj.r1_conf_1 %}
-                        <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj.r1_conf_1 }}</span>
+                        <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj. r1_conf_1 }}</span>
                         {% endif %}
                     </td>
-                    <td class="expl-text">"{{ instance_obj.r1_expl_1 }}"</td>
+                    <td class="expl-text">"{{ instance_obj. r1_expl_1 }}"</td>
                     <td class="validation-cell">
                         <form class="annotation-form">
                             <fieldset>
-                                <input type="radio" id="v1_valid" name="validity_1:::valid" value="v1_valid" class="validity_1" onclick="onlyOne(this)" validation="required">
-                                <label class="text-success font-weight-bold" for="v1_valid">Ja (Sinnvoll)</label><br>
+                                <div class="validation-option valid">
+                                    <input type="radio" id="v1_valid" name="validity_1:::valid" value="v1_valid" class="validity_1" onclick="onlyOne(this)" validation="required">
+                                    <label for="v1_valid">✓ Ja (Sinnvoll)</label>
+                                </div>
 
-                                <input type="radio" id="v1_invalid" name="validity_1:::invalid" value="v1_invalid" class="validity_1" onclick="onlyOne(this)">
-                                <label class="text-danger" for="v1_invalid">Nein (Ungültig)</label><br>
+                                <div class="validation-option invalid">
+                                    <input type="radio" id="v1_invalid" name="validity_1:::invalid" value="v1_invalid" class="validity_1" onclick="onlyOne(this)">
+                                    <label for="v1_invalid">✗ Nein (Ungültig)</label>
+                                </div>
 
-                                <input type="radio" id="v1_unsure" name="validity_1:::unsure" value="v1_unsure" class="validity_1" onclick="onlyOne(this)">
-                                <label class="text-secondary" for="v1_unsure">Unsicher</label>
+                                <div class="validation-option unsure">
+                                    <input type="radio" id="v1_unsure" name="validity_1:::unsure" value="v1_unsure" class="validity_1" onclick="onlyOne(this)">
+                                    <label for="v1_unsure">?  Unsicher</label>
+                                </div>
                             </fieldset>
                         </form>
                     </td>
@@ -77,14 +266,20 @@
                     <td class="validation-cell">
                         <form class="annotation-form">
                             <fieldset>
-                                <input type="radio" id="v2_valid" name="validity_2:::valid" value="v2_valid" class="validity_2" onclick="onlyOne(this)" validation="required">
-                                <label class="text-success font-weight-bold" for="v2_valid">Ja (Sinnvoll)</label><br>
+                                <div class="validation-option valid">
+                                    <input type="radio" id="v2_valid" name="validity_2:::valid" value="v2_valid" class="validity_2" onclick="onlyOne(this)" validation="required">
+                                    <label for="v2_valid">✓ Ja (Sinnvoll)</label>
+                                </div>
 
-                                <input type="radio" id="v2_invalid" name="validity_2:::invalid" value="v2_invalid" class="validity_2" onclick="onlyOne(this)">
-                                <label class="text-danger" for="v2_invalid">Nein (Ungültig)</label><br>
+                                <div class="validation-option invalid">
+                                    <input type="radio" id="v2_invalid" name="validity_2:::invalid" value="v2_invalid" class="validity_2" onclick="onlyOne(this)">
+                                    <label for="v2_invalid">✗ Nein (Ungültig)</label>
+                                </div>
 
-                                <input type="radio" id="v2_unsure" name="validity_2:::unsure" value="v2_unsure" class="validity_2" onclick="onlyOne(this)">
-                                <label class="text-secondary" for="v2_unsure">Unsicher</label>
+                                <div class="validation-option unsure">
+                                    <input type="radio" id="v2_unsure" name="validity_2:::unsure" value="v2_unsure" class="validity_2" onclick="onlyOne(this)">
+                                    <label for="v2_unsure">? Unsicher</label>
+                                </div>
                             </fieldset>
                         </form>
                     </td>
@@ -104,14 +299,20 @@
                     <td class="validation-cell">
                         <form class="annotation-form">
                             <fieldset>
-                                <input type="radio" id="v3_valid" name="validity_3:::valid" value="v3_valid" class="validity_3" onclick="onlyOne(this)" validation="required">
-                                <label class="text-success font-weight-bold" for="v3_valid">Ja (Sinnvoll)</label><br>
+                                <div class="validation-option valid">
+                                    <input type="radio" id="v3_valid" name="validity_3:::valid" value="v3_valid" class="validity_3" onclick="onlyOne(this)" validation="required">
+                                    <label for="v3_valid">✓ Ja (Sinnvoll)</label>
+                                </div>
 
-                                <input type="radio" id="v3_invalid" name="validity_3:::invalid" value="v3_invalid" class="validity_3" onclick="onlyOne(this)">
-                                <label class="text-danger" for="v3_invalid">Nein (Ungültig)</label><br>
+                                <div class="validation-option invalid">
+                                    <input type="radio" id="v3_invalid" name="validity_3:::invalid" value="v3_invalid" class="validity_3" onclick="onlyOne(this)">
+                                    <label for="v3_invalid">✗ Nein (Ungültig)</label>
+                                </div>
 
-                                <input type="radio" id="v3_unsure" name="validity_3:::unsure" value="v3_unsure" class="validity_3" onclick="onlyOne(this)">
-                                <label class="text-secondary" for="v3_unsure">Unsicher</label>
+                                <div class="validation-option unsure">
+                                    <input type="radio" id="v3_unsure" name="validity_3:::unsure" value="v3_unsure" class="validity_3" onclick="onlyOne(this)">
+                                    <label for="v3_unsure">? Unsicher</label>
+                                </div>
                             </fieldset>
                         </form>
                     </td>
@@ -122,7 +323,7 @@
                 <tr>
                     <td class="text-center font-weight-bold">4</td>
                     <td>
-                        <span class="badge badge-primary badge-label">{{ instance_obj.r1_label_4 }}</span>
+                        <span class="badge badge-primary badge-label">{{ instance_obj. r1_label_4 }}</span>
                         {% if instance_obj.r1_conf_4 %}
                         <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj.r1_conf_4 }}</span>
                         {% endif %}
@@ -131,14 +332,20 @@
                     <td class="validation-cell">
                         <form class="annotation-form">
                             <fieldset>
-                                <input type="radio" id="v4_valid" name="validity_4:::valid" value="v4_valid" class="validity_4" onclick="onlyOne(this)" validation="required">
-                                <label class="text-success font-weight-bold" for="v4_valid">Ja (Sinnvoll)</label><br>
+                                <div class="validation-option valid">
+                                    <input type="radio" id="v4_valid" name="validity_4:::valid" value="v4_valid" class="validity_4" onclick="onlyOne(this)" validation="required">
+                                    <label for="v4_valid">✓ Ja (Sinnvoll)</label>
+                                </div>
 
-                                <input type="radio" id="v4_invalid" name="validity_4:::invalid" value="v4_invalid" class="validity_4" onclick="onlyOne(this)">
-                                <label class="text-danger" for="v4_invalid">Nein (Ungültig)</label><br>
+                                <div class="validation-option invalid">
+                                    <input type="radio" id="v4_invalid" name="validity_4:::invalid" value="v4_invalid" class="validity_4" onclick="onlyOne(this)">
+                                    <label for="v4_invalid">✗ Nein (Ungültig)</label>
+                                </div>
 
-                                <input type="radio" id="v4_unsure" name="validity_4:::unsure" value="v4_unsure" class="validity_4" onclick="onlyOne(this)">
-                                <label class="text-secondary" for="v4_unsure">Unsicher</label>
+                                <div class="validation-option unsure">
+                                    <input type="radio" id="v4_unsure" name="validity_4:::unsure" value="v4_unsure" class="validity_4" onclick="onlyOne(this)">
+                                    <label for="v4_unsure">? Unsicher</label>
+                                </div>
                             </fieldset>
                         </form>
                     </td>
