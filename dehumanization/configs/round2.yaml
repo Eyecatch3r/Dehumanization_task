@@ -26,76 +26,82 @@ login:
 
 alert_time_each_instance: 10000000
 
+jumping_to_id_disabled: True
+hide_navbar: True
+
 # ==========================================================
 #  Annotation Schemes (Validity Judgments)
 # ==========================================================
-# We create a separate judgment schema for each potential explanation
-# from Round 1. In the HTML, we will hide the ones that are empty.
-
 annotation_schemes:
-  # --- Judgment for Annotator 1's Explanation ---
   - name: "validity_1"
     annotation_type: "radio"
-    description: "Check 1"
-    labels: ["Ja (Sinnvoll)", "Nein (Ungültig)", "Unsicher"]
-    # Not required, because some items might only have 2 explanations
-    label_requirement: { "required": False }
+    description: "Validation for Explanation 1"
+    labels:
+      - name: "valid"
+        label: "Ja (Sinnvoll)"
+      - name: "invalid"
+        label: "Nein (Ungültig)"
+      - name: "unsure"
+        label: "Unsicher"
+    label_requirement:
+      required: false
 
-  # --- Judgment for Annotator 2's Explanation ---
   - name: "validity_2"
     annotation_type: "radio"
-    description: "Check 2"
-    labels: ["Ja (Sinnvoll)", "Nein (Ungültig)", "Unsicher"]
-    label_requirement: { "required": False }
+    description: "Validation for Explanation 2"
+    labels:
+      - name: "valid"
+        label: "Ja (Sinnvoll)"
+      - name: "invalid"
+        label: "Nein (Ungültig)"
+      - name: "unsure"
+        label: "Unsicher"
+    label_requirement:
+      required: false
 
-  # --- Judgment for Annotator 3's Explanation ---
   - name: "validity_3"
     annotation_type: "radio"
-    description: "Check 3"
-    labels: ["Ja (Sinnvoll)", "Nein (Ungültig)", "Unsicher"]
-    label_requirement: { "required": False }
+    description: "Validation for Explanation 3"
+    labels:
+      - name: "valid"
+        label: "Ja (Sinnvoll)"
+      - name: "invalid"
+        label: "Nein (Ungültig)"
+      - name: "unsure"
+        label: "Unsicher"
+    label_requirement:
+      required: false
 
-  # --- Judgment for Annotator 4's Explanation ---
   - name: "validity_4"
     annotation_type: "radio"
-    description: "Check 1"
-    labels: ["Ja (Sinnvoll)", "Nein (Ungültig)", "Unsicher"]
-    label_requirement: { "required": False }
+    description: "Validation for Explanation 4"
+    labels:
+      - name: "valid"
+        label: "Ja (Sinnvoll)"
+      - name: "invalid"
+        label: "Nein (Ungültig)"
+      - name: "unsure"
+        label: "Unsicher"
+    label_requirement:
+      required: false
 
 # ==========================================================
 #  Layout Configuration
 # ==========================================================
-# We use a custom template to display the Label+Explanation pairs
-# alongside the voting buttons.
 html_layout: "templates/validation_layout.html"
 
-"jumping_to_id_disabled": True
-"hide_navbar": True
-
-"surveyflow": {
-    "on": true,
-    "order": [
-        "pre_annotation",
-        "post_annotation"
-    ],
-    "pre_annotation": [
-        {
-            "file": "surveyflow_r2/intro_and_def.jsonl",
-            "text": "Willkommen zur&uuml;ck: Definition"
-        },
-        {
-            "file": "surveyflow_r2/instructions.jsonl",
-            "text": "Anleitung f&uuml;r Runde 2 (Validierung)"
-        }
-    ],
-    "post_annotation": [
-        {
-            "file": "surveyflow_r2/post_reflection.jsonl",
-            "text": "Abschlie&szlig;ende Reflexion"
-        },
-        {
-            "file": "surveyflow_r2/end.jsonl",
-            "text": "Vielen Dank"
-        }
-    ]
-}
+"surveyflow":
+  "on": true
+  "order":
+    - "pre_annotation"
+    - "post_annotation"
+  "pre_annotation":
+    - "file": "surveyflow_r2/intro_and_def.jsonl"
+      "text": "Willkommen zurück: Definition"
+    - "file": "surveyflow_r2/instructions.jsonl"
+      "text": "Anleitung für Runde 2 (Validierung)"
+  "post_annotation":
+    - "file": "surveyflow_r2/post_reflection.jsonl"
+      "text": "Abschließende Reflexion"
+    - "file": "surveyflow_r2/end.jsonl"
+      "text": "Vielen Dank"

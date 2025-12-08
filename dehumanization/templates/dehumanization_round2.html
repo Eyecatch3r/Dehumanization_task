@@ -1,89 +1,162 @@
-<!--
-    Potato Annotation Template: Dehumanization Validation (Round 2)
-    Task: Judge if an existing annotation (label + explanation) is valid and rate confidence.
--->
-
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <style>
-    .container {
-        border: 1px solid #ccc;
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-    .text-to-label {
-        background-color: #f0f8ff; /* Light blue */
-        border: 1px dashed #ddd;
-        padding: 10px;
-        margin-bottom: 15px;
-        font-size: 1.1em;
-        line-height: 1.5;
-    }
-    .annotation-to-judge {
-        background-color: #fffacd; /* Lemon Chiffon */
-        border: 1px solid #f0e68c;
-        padding: 10px;
-    }
-    .likert-scale-table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: center;
-    }
-    .likert-scale-table td {
-        padding: 8px;
-    }
+    .table td { vertical-align: middle; }
+    .expl-text { font-style: italic; color: #555; font-size: 0.95rem;}
+    .conf-score { font-size: 0.8rem; color: #6c757d; display: block; margin-top: 4px; }
+    .validation-cell { min-width: 180px; }
+    .badge-label { font-size: 0.9rem; padding: 6px 10px; }
+    .custom-control { margin-bottom: 0. 5rem; }
+    .custom-control-label { cursor: pointer; }
 </style>
 
-<div class="container">
-    <h4>Instructions</h4>
-    <p>You will be shown the original text and an annotation made by another user (or yourself) in a previous round. Your task is to judge the validity of that annotation.</p>
-    <ol>
-        <li>Review the original text.</li>
-        <li>Review the existing annotation, which includes a <strong>Label</strong> and an <strong>Explanation</strong>.</li>
-        <li>Decide if the explanation provides a <strong>valid and logical reason</strong> for the assigned label.</li>
-        <li>Rate how confident you are in your validation judgment.</li>
-    </ol>
-</div>
+<div class="container-fluid mt-4" style="max-width: 1200px;">
 
-<div class="container">
-    <h4>Original Text</h4>
-    <div class="text-to-label">
-        {{text}}
+    <div class="card mb-4 shadow-sm border-dark">
+        <div class="card-header bg-dark text-white py-2">
+            <strong>Original Text (ID: {{ instance_obj.id }})</strong>
+        </div>
+        <div class="card-body bg-light py-3">
+            <p class="lead mb-0" style="font-size: 1.15rem;">{{ instance_obj.text }}</p>
+        </div>
     </div>
-</div>
 
-<div class="container">
-    <h4>Annotation to Judge</h4>
-    <div class="annotation-to-judge">
-        <p><strong>Label Given:</strong> <u>{{original_label}}</u></p>
-        <p><strong>Explanation Given:</strong> <i>"{{original_explanation}}"</i></p>
+    <div class="alert alert-info py-2 mb-3 small">
+        <strong>Anleitung:</strong> Bewerten Sie die Validität (Sinnhaftigkeit) der Erklärung für das gewählte Label.
     </div>
-</div>
 
-<div class="container">
-    <h4>1. Your Judgment</h4>
-    <!-- The main validation choice -->
-    <p>Does the explanation provide a valid reason for the given label?</p>
-    {{ C('validation_judgment', 'Is this annotation valid?', ['Yes, the reasoning is valid', 'No, the reasoning is invalid', "I don't know / Unsure"], required=True) }}
-</div>
+    <div class="table-responsive shadow-sm">
+        <table class="table table-bordered table-hover bg-white mb-0">
+            <thead class="thead-light">
+                <tr>
+                    <th style="width: 5%">#</th>
+                    <th style="width: 20%">Entscheidung</th>
+                    <th style="width: 50%">Erklärung</th>
+                    <th style="width: 25%">Validierung</th>
+                </tr>
+            </thead>
+            <tbody>
 
-<div class="container">
-    <h4>2. Confidence in Your Validation</h4>
-    <!-- 5-point Likert scale for confidence -->
-    <p>How confident are you in your validation decision?</p>
-    <table class="likert-scale-table">
-        <tr>
-            <td>1 - Not Confident At All</td>
-            <td>2</td>
-            <td>3 - Moderately Confident</td>
-            <td>4</td>
-            <td>5 - Very Confident</td>
-        </tr>
-        <tr>
-            <td>{{ R('validation_confidence', 1, required=True) }}</td>
-            <td>{{ R('validation_confidence', 2) }}</td>
-            <td>{{ R('validation_confidence', 3) }}</td>
-            <td>{{ R('validation_confidence', 4) }}</td>
-            <td>{{ R('validation_confidence', 5) }}</td>
-        </tr>
-    </table>
+                {% if instance_obj.r1_label_1 %}
+                <tr>
+                    <td class="text-center font-weight-bold">1</td>
+                    <td>
+                        <span class="badge badge-primary badge-label">{{ instance_obj.r1_label_1 }}</span>
+                        {% if instance_obj.r1_conf_1 %}
+                        <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj. r1_conf_1 }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="expl-text">"{{ instance_obj. r1_expl_1 }}"</td>
+                    <td class="validation-cell">
+                        <fieldset>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v1_yes" name="validity_1" value="Ja (Sinnvoll)" class="custom-control-input" validation="required">
+                                <label class="custom-control-label text-success font-weight-bold" for="v1_yes">Ja (Sinnvoll)</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v1_no" name="validity_1" value="Nein (Ungültig)" class="custom-control-input">
+                                <label class="custom-control-label text-danger" for="v1_no">Nein (Ungültig)</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v1_unsure" name="validity_1" value="Unsicher" class="custom-control-input">
+                                <label class="custom-control-label text-secondary" for="v1_unsure">Unsicher</label>
+                            </div>
+                        </fieldset>
+                    </td>
+                </tr>
+                {% endif %}
+
+                {% if instance_obj.r1_label_2 %}
+                <tr>
+                    <td class="text-center font-weight-bold">2</td>
+                    <td>
+                        <span class="badge badge-primary badge-label">{{ instance_obj.r1_label_2 }}</span>
+                        {% if instance_obj.r1_conf_2 %}
+                        <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj.r1_conf_2 }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="expl-text">"{{ instance_obj.r1_expl_2 }}"</td>
+                    <td class="validation-cell">
+                        <fieldset>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v2_yes" name="validity_2" value="Ja (Sinnvoll)" class="custom-control-input" validation="required">
+                                <label class="custom-control-label text-success font-weight-bold" for="v2_yes">Ja (Sinnvoll)</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v2_no" name="validity_2" value="Nein (Ungültig)" class="custom-control-input">
+                                <label class="custom-control-label text-danger" for="v2_no">Nein (Ungültig)</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v2_unsure" name="validity_2" value="Unsicher" class="custom-control-input">
+                                <label class="custom-control-label text-secondary" for="v2_unsure">Unsicher</label>
+                            </div>
+                        </fieldset>
+                    </td>
+                </tr>
+                {% endif %}
+
+                {% if instance_obj.r1_label_3 %}
+                <tr>
+                    <td class="text-center font-weight-bold">3</td>
+                    <td>
+                        <span class="badge badge-primary badge-label">{{ instance_obj.r1_label_3 }}</span>
+                        {% if instance_obj.r1_conf_3 %}
+                        <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj.r1_conf_3 }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="expl-text">"{{ instance_obj.r1_expl_3 }}"</td>
+                    <td class="validation-cell">
+                        <fieldset>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v3_yes" name="validity_3" value="Ja (Sinnvoll)" class="custom-control-input" validation="required">
+                                <label class="custom-control-label text-success font-weight-bold" for="v3_yes">Ja (Sinnvoll)</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v3_no" name="validity_3" value="Nein (Ungültig)" class="custom-control-input">
+                                <label class="custom-control-label text-danger" for="v3_no">Nein (Ungültig)</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v3_unsure" name="validity_3" value="Unsicher" class="custom-control-input">
+                                <label class="custom-control-label text-secondary" for="v3_unsure">Unsicher</label>
+                            </div>
+                        </fieldset>
+                    </td>
+                </tr>
+                {% endif %}
+
+                {% if instance_obj.r1_label_4 %}
+                <tr>
+                    <td class="text-center font-weight-bold">4</td>
+                    <td>
+                        <span class="badge badge-primary badge-label">{{ instance_obj.r1_label_4 }}</span>
+                        {% if instance_obj.r1_conf_4 %}
+                        <span class="conf-score"><i class="small">Konfidenz:</i><br>{{ instance_obj.r1_conf_4 }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="expl-text">"{{ instance_obj.r1_expl_4 }}"</td>
+                    <td class="validation-cell">
+                        <fieldset>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v4_yes" name="validity_4" value="Ja (Sinnvoll)" class="custom-control-input" validation="required">
+                                <label class="custom-control-label text-success font-weight-bold" for="v4_yes">Ja (Sinnvoll)</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v4_no" name="validity_4" value="Nein (Ungültig)" class="custom-control-input">
+                                <label class="custom-control-label text-danger" for="v4_no">Nein (Ungültig)</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="v4_unsure" name="validity_4" value="Unsicher" class="custom-control-input">
+                                <label class="custom-control-label text-secondary" for="v4_unsure">Unsicher</label>
+                            </div>
+                        </fieldset>
+                    </td>
+                </tr>
+                {% endif %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-4 mb-5">
+    </div>
 </div>
